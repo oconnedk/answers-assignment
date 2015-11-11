@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BasicAudit;
+use AppBundle\Entity\Traits\Identifiable;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -19,13 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Answer extends BasicAudit
 {
-    /**
-     * @var int
-     * @ORM\Id
-     * @ORM\Column(type = "integer")
-     * @ORM\GeneratedValue
-     */
-    private $id;
+    use Identifiable;
 
     /**
      * @var string

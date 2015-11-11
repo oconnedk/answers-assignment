@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Entity;
+use AppBundle\Entity\Traits\Identifiable;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -17,14 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class AnswerSearchStat
 {
-    /**
-     * Having an ID here allows us to easily identify a given row
-     * @var int
-     * @ORM\Id
-     * @ORM\Column(type = "integer")
-     * @ORM\GeneratedValue
-     */
-    private $id;
+    use Identifiable; // Having an ID here allows us to easily identify a given row
 
     /**
      * @var Answer

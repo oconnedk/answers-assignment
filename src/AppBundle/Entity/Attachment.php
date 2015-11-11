@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BasicAudit;
+use AppBundle\Entity\Traits\Identifiable;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -17,13 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Attachment extends BasicAudit
 {
-    /**
-     * @var int
-     * @ORM\Id
-     * @ORM\Column(type = "integer")
-     * @ORM\GeneratedValue
-     */
-    private $id;
+    use Identifiable;
 
     /**
      * @var string
