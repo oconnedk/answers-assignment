@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Entity;
+use AppBundle\Entity\Base\BasicAudit;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="comment")
  * @ORM\Entity
  */
-class Comment
+class Comment extends BasicAudit
 {
     /**
      * @var int
@@ -31,27 +32,13 @@ class Comment
     private $content;
 
     /**
-     * TODO: Replace string value once a user model has been chosen, link to that
-     * @var string
-     * @ORM\Column(length = 30, name="created_by")
-     */
-    private $createdBy;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", name="created_at")
-     */
-    private $createdAt;
-
-    /**
      * @param string $content
      * @param string $createdBy -- FIXME: will be User once user model chosen
      */
     public function __construct($content, $createdBy)
     {
+        parent::__construct($createdBy);
         $this->content = $content;
-        $this->createdBy = $createdBy;
-        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -78,24 +65,6 @@ class Comment
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * @param mixed $createdBy
-     * @return Comment
-     */
-    public function setCreatedBy($createdBy)
-    {
-        $this->createdBy = $createdBy;
-        return $this;
-    }
-
-    /**
-     * @return string - FIXME: will return User once model chosen
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
     }
 
 }

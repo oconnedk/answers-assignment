@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Entity;
+use AppBundle\Entity\Base\BasicAudit;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="attachment")
  * @ORM\Entity
  */
-class Attachment
+class Attachment extends BasicAudit
 {
     /**
      * @var int
@@ -36,21 +37,11 @@ class Attachment
      */
     private $size;
 
-    /** @ORM\Column(length = 32) */
-    private $extension;
-
     /**
-     * TODO: Replace string value once a user model has been chosen, link to that
      * @var string
-     * @ORM\Column(length = 30, name="created_by")
+     * @ORM\Column(length = 32)
      */
-    private $createdBy;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(type="datetime", name="created_at")
-     */
-    private $createdAt;
+    private $extension;
 
     /**
      * @param string $path
@@ -60,11 +51,10 @@ class Attachment
      */
     public function __construct($path, $size, $extension, $createdBy)
     {
+        parent::__construct($createdBy);
         $this->path = $path;
         $this->size = $size;
         $this->extension = $size;
-        $this->createdBy = $createdBy;
-        $this->createdAt = new \DateTime();
     }
 
     /**
@@ -76,57 +66,57 @@ class Attachment
     }
 
     /**
-     * @param string $content
+     * @param mixed $extension
      * @return Attachment
      */
-    public function setContent($content)
+    public function setExtension($extension)
     {
-        $this->content = $content;
+        $this->extension = $extension;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getContent()
+    public function getExtension()
     {
-        return $this->content;
+        return $this->extension;
     }
 
     /**
-     * @param mixed $createdBy
+     * @param string $path
      * @return Attachment
      */
-    public function setCreatedBy($createdBy)
+    public function setPath($path)
     {
-        $this->createdBy = $createdBy;
+        $this->path = $path;
         return $this;
     }
 
     /**
-     * @return string - FIXME: will return User once model chosen
+     * @return string
      */
-    public function getCreatedBy()
+    public function getPath()
     {
-        return $this->createdBy;
+        return $this->path;
     }
 
     /**
-     * @param mixed $title
+     * @param int $size
      * @return Attachment
      */
-    public function setTitle($title)
+    public function setSize($size)
     {
-        $this->title = $title;
+        $this->size = $size;
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getTitle()
+    public function getSize()
     {
-        return $this->title;
+        return $this->size;
     }
 
 }
