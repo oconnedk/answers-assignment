@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BasicAudit;
 use AppBundle\Entity\Traits\Identifiable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -35,6 +36,12 @@ class Answer extends BasicAudit
     private $content;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="answer")
+     */
+    private $comments;
+
+    /**
      * @param string $title
      * @param string $content
      * @param string $createdBy -- FIXME: will be User once user model chosen
@@ -44,6 +51,7 @@ class Answer extends BasicAudit
         parent::__construct($createdBy);
         $this->title = $title;
         $this->content = $content;
+        $this->comments = new ArrayCollection();
     }
 
     /**

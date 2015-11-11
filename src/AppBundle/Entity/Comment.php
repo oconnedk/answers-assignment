@@ -27,12 +27,20 @@ class Comment extends BasicAudit
     private $content;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Answer", inversedBy="comments")
+     * @ORM\JoinColumn(name="answer_id", referencedColumnName="id")
+     **/
+    private $answer;
+
+    /**
+     * @param Answer $answer
      * @param string $content
      * @param string $createdBy -- FIXME: will be User once user model chosen
      */
-    public function __construct($content, $createdBy)
+    public function __construct(Answer $answer, $content, $createdBy)
     {
         parent::__construct($createdBy);
+        $this->answer = $answer;
         $this->content = $content;
     }
 
