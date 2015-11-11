@@ -10,11 +10,13 @@ namespace AppBundle\DataFixtures\ORM;
 
 
 use AppBundle\Entity\Attachment;
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadAttachmentData implements FixtureInterface
+class LoadAttachmentData extends AbstractFixture implements OrderedFixtureInterface
 {
+    const LOAD_ORDER = 10;
     const BASE_PATH = "/path/to/the/attachments/";
 
     public function load(ObjectManager $manager)
@@ -24,7 +26,13 @@ class LoadAttachmentData implements FixtureInterface
             "chart.xls",
             "currencypairs.csv",
             "help.txt",
-            "clientaccount.doc"
+            "clientaccount.doc",
+            "clientaccount2.doc",
+            "song.mp3",
+            "video.m4v",
+            "picture.jpg",
+            "logo.png",
+            "smiley.gif"
         ];
         foreach ($fileNames as $fileName)
         {
@@ -62,5 +70,15 @@ class LoadAttachmentData implements FixtureInterface
             "RLerdorf"
         ];
         return $userNames[array_rand($userNames, 1)];
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return self::LOAD_ORDER;
     }
 }
