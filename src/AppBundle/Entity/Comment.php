@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BasicAudit;
 use AppBundle\Entity\Traits\Identifiable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -33,6 +34,29 @@ class Comment extends BasicAudit
     private $answer;
 
     /**
+     * @var ArrayCollection
+     * Set-up as a one-to-many using many-to-many join table, as attachments can relate to both answers and comments
+     * We want an attachment to relate to one-and-only one Comment
+     * @ORM\ManyToMany(targetEntity="Attachment")
+     * @ORM\JoinTable(
+     *  name="comment_attachment",
+     *  joinColumns={
+     *      @ORM\JoinColumn(
+     *          name="comment_id",
+     *          referencedColumnName="id"
+     *      )
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(
+     *          name="attachment_id",
+     *          referencedColumnName="id",
+     *          unique = true  )
+     *  }
+     * )
+     */
+    private $attachments;
+
+    /**
      * @param Answer $answer
      * @param string $content
      * @param string $createdBy -- FIXME: will be User once user model chosen
@@ -42,6 +66,7 @@ class Comment extends BasicAudit
         parent::__construct($createdBy);
         $this->answer = $answer;
         $this->content = $content;
+        $this->attachments = new ArrayCollection();
     }
 
     /**

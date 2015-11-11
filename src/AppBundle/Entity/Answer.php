@@ -42,6 +42,29 @@ class Answer extends BasicAudit
     private $comments;
 
     /**
+     * @var ArrayCollection
+     * Set-up as a one-to-many using many-to-many join table, as attachments can relate to both answers and comments
+     * We want an attachment to relate to one-and-only one Answer
+     * @ORM\ManyToMany(targetEntity="Attachment")
+     * @ORM\JoinTable(
+     *  name="answer_attachment",
+     *  joinColumns={
+     *      @ORM\JoinColumn(
+     *          name="answer_id",
+     *          referencedColumnName="id"
+     *      )
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(
+     *          name="attachment_id",
+     *          referencedColumnName="id",
+     *          unique = true  )
+     *  }
+     * )
+     */
+    private $attachments;
+
+    /**
      * @param string $title
      * @param string $content
      * @param string $createdBy -- FIXME: will be User once user model chosen
@@ -52,6 +75,7 @@ class Answer extends BasicAudit
         $this->title = $title;
         $this->content = $content;
         $this->comments = new ArrayCollection();
+        $this->attachments = new ArrayCollection();
     }
 
     /**
