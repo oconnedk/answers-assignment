@@ -71,3 +71,18 @@ Model
         has     has
           \     /
         ATTACHMENT
+
+
+SETUP
+=====
+
+Run: ```scripts/setup.sh```
+
+This will set up the database and populate it with dummy data.
+
+*Note:* Since the project has been set-up with UTF8 in mind (and using MySQL), so it's probably best to amend the MySQL config file as follows:
+
+    [mysqld]
+    # Version 5.5.3 introduced "utf8mb4", which is recommended
+    collation-server     = utf8mb4_general_ci
+    character-set-server = utf8mb4
