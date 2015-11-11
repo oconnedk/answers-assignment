@@ -55,9 +55,10 @@ Basic Information
 -----------------
 
 - Answer *(ID, title, content, createdBy, createdAt)*
+  - *assumption*: titles should be unique - no point allowing duplicate answers
 - Comment *(owner, content, createdBy, createdAt)*
 - Attachment *(ID, path, size, extension)*
-- Answer Search Stat *(answer_ID, searchedAt, searchTerm)*
+- Answer Search Stat *(answer_ID, searchedAt)*
 
 Model
 -----
