@@ -8,5 +8,8 @@ $consoleCmd doctrine:database:drop --if-exists --force
 # now create the database
 $consoleCmd doctrine:database:create
 
-# setup entities in the database
+# setup entity structure in the database
 $consoleCmd doctrine:schema:update --force
+
+# load entities
+$consoleCmd doctrine:fixtures:load --append

@@ -10,11 +10,12 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Base\BasicAudit;
 use AppBundle\Entity\Traits\Identifiable;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="attachment")
  * @ORM\Entity
+ * @UniqueEntity("path")   -- path needs to be unique to prevent existing files being over-written
  */
 class Attachment extends BasicAudit
 {
@@ -49,7 +50,7 @@ class Attachment extends BasicAudit
         parent::__construct($createdBy);
         $this->path = $path;
         $this->size = $size;
-        $this->extension = $size;
+        $this->extension = $extension;
     }
 
     /**
