@@ -20,20 +20,6 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
     const LOAD_ORDER = 10;
     const BASE_PATH = "/path/to/the/attachments/";
 
-    /**
-     * @return string
-     */
-    public static function getRandomUser()
-    {
-        static $userNames = [
-            "LTorvalds",
-            "TBLee",
-            "SBrin",
-            "RLerdorf"
-        ];
-        return $userNames[array_rand($userNames, 1)];
-    }
-
     public function load(ObjectManager $manager)
     {
         $questionData = [
@@ -117,6 +103,20 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
         .preg_replace("/[^A-Za-z0-9]/", "", $answer->getTitle())
         .($index + 1)
         .".$randomExtension";
+    }
+
+    /**
+     * @return string
+     */
+    public static function getRandomUser()
+    {
+        static $userNames = [
+            "LTorvalds",
+            "TBLee",
+            "SBrin",
+            "RLerdorf"
+        ];
+        return $userNames[array_rand($userNames, 1)];
     }
 
     /**

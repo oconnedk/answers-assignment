@@ -22,7 +22,7 @@ class AnswerSearchStat
 
     /**
      * @var Answer
-     * @ORM\OneToOne(targetEntity="Answer")
+     * @ORM\ManyToOne(targetEntity="Answer")
      * @ORM\JoinColumn(name="answer_id", referencedColumnName="id")
      */
     private $answer;
