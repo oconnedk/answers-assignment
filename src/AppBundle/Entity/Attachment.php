@@ -43,7 +43,7 @@ class Attachment extends BasicAudit
      * @param string $path
      * @param int $size
      * @param string $extension
-     * @param string $createdBy -- FIXME: will be User once user model chosen
+     * @param User $createdBy
      */
     public function __construct($path, $size, $extension, $createdBy)
     {

@@ -67,7 +67,7 @@ class Answer extends BasicAudit
     /**
      * @param string $title
      * @param string $content
-     * @param string $createdBy -- FIXME: will be User once user model chosen
+     * @param User $createdBy
      */
     public function __construct($title, $content, $createdBy)
     {

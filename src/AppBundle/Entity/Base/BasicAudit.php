@@ -9,6 +9,7 @@
 namespace AppBundle\Entity\Base;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User;
 
 /**
  * Class BasicAudit
@@ -18,9 +19,9 @@ use Doctrine\ORM\Mapping as ORM;
 class BasicAudit
 {
     /**
-     * TODO: Replace string value once a user model has been chosen, link to that
-     * @var string
-     * @ORM\Column(length = 30, name="created_by")
+     * @var User
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="created_by", referencedColumnName="id")
      */
     protected $createdBy;
 
@@ -31,7 +32,7 @@ class BasicAudit
     protected $createdAt;
 
     /**
-     * @param string $createdBy -- FIXME: will be User once user model chosen
+     * @param User $createdBy
      */
     public function __construct($createdBy)
     {
@@ -40,7 +41,7 @@ class BasicAudit
     }
 
     /**
-     * @param mixed $createdBy
+     * @param User $createdBy
      * @return BasicAudit
      */
     public function setCreatedBy($createdBy)
@@ -50,7 +51,7 @@ class BasicAudit
     }
 
     /**
-     * @return string - FIXME: will return User once model chosen
+     * @return User
      */
     public function getCreatedBy()
     {

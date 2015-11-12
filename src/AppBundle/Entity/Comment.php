@@ -59,7 +59,7 @@ class Comment extends BasicAudit
     /**
      * @param Answer $answer
      * @param string $content
-     * @param string $createdBy -- FIXME: will be User once user model chosen
+     * @param User $createdBy
      */
     public function __construct(Answer $answer, $content, $createdBy)
     {

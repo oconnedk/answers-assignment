@@ -36,7 +36,7 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
         {
             list ($question, $numAttachments, $numComments, $numCommentAttachments) = $questionEntry;
             $answerContent = "$question is the question and 5.346 is the answer";
-            $answer = new Answer($question, $answerContent, self::getRandomUser());
+            $answer = new Answer($question, $answerContent, LoadUserData::getRandomUser());
             for ($i = 0; $i < $numAttachments; ++$i)
             {
                 $answer->addAttachment($this->createAttachment($answer));
@@ -62,7 +62,7 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
         $comment = new Comment(
             $answer,
             "This is comment number $numComments for the question: ".$answer->getTitle(),
-            self::getRandomUser()
+            LoadUserData::getRandomUser()
         );
         for ($i = 0; $i < $numAttachments; ++$i){
             $comment->addAttachment(self::createAttachment($answer, $comment));
@@ -85,7 +85,7 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
             $file,
             rand(1024,65535),
             pathinfo($file, PATHINFO_EXTENSION),
-            self::getRandomUser()
+            LoadUserData::getRandomUser()
         );
     }
 
@@ -103,20 +103,6 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
         .preg_replace("/[^A-Za-z0-9]/", "", $answer->getTitle())
         .($index + 1)
         .".$randomExtension";
-    }
-
-    /**
-     * @return string
-     */
-    public static function getRandomUser()
-    {
-        static $userNames = [
-            "LTorvalds",
-            "TBLee",
-            "SBrin",
-            "RLerdorf"
-        ];
-        return $userNames[array_rand($userNames, 1)];
     }
 
     /**
