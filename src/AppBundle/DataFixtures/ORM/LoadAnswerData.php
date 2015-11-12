@@ -23,14 +23,14 @@ class LoadAnswerData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $questionData = [
-            ["What is the meaning of life?",                0, 0, 0],
-            ["What number am I thinking of?",               0, 0, 1],
-            ["Is this the real life? Is it just fantasy?",  0, 0, 2],
-            ["Are you experienced?",                        0, 1, 0],
-            ["Are you really experienced?",                 0, 1, 1],
-            ["Where are my files?",                         1, 1, 1],
-            ["Where is my mind?",                           1, 1, 2],
-            ["Are we there yet?",                           2, 2, 2]
+            ["What is the meaning of life?",                0, 0, 0],   // = 0 attach, 0 comments, 0 comment attachments
+            ["What number am I thinking of?",               0, 1, 0],   // = 0 attach, 1 comment, 0 comment attachments
+            ["Is this the real life? Is it just fantasy?",  0, 1, 1],   // = 0 attach, 1 comment, 1 comment attachments
+            ["Are you experienced?",                        0, 2, 2],   // = 0 attach, 2 comments each with 2 comment attachments
+            ["Are you really experienced?",                 1, 0, 0],   // = 1 attach, 0 comments, 0 comment attachments
+            ["Where are my files?",                         1, 1, 0],   // = 1 attach, 1 comment, 0 comment attachments
+            ["Where is my mind?",                           1, 1, 1],   // = 1 attach, 1 comment, 0 comment attachments
+            ["Are we there yet?",                           2, 2, 2]    // = 1 attach, 2 comments each with 2 comment attachments
         ];
         foreach ($questionData as $questionEntry)
         {
