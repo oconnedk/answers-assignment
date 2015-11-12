@@ -37,7 +37,7 @@ class Answer extends BasicAudit
 
     /**
      * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="answer")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="answer", cascade={"persist", "remove"})
      */
     private $comments;
 
@@ -45,7 +45,7 @@ class Answer extends BasicAudit
      * @var ArrayCollection
      * Set-up as a one-to-many using many-to-many join table, as attachments can relate to both answers and comments
      * We want an attachment to relate to one-and-only one Answer
-     * @ORM\ManyToMany(targetEntity="Attachment")
+     * @ORM\ManyToMany(targetEntity="Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *  name="answer_attachment",
      *  joinColumns={
@@ -120,6 +120,42 @@ class Answer extends BasicAudit
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param Comment $comment
+     * @return Answer
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments->add($comment);
+        return $this;
+    }
+
+    /**
+     * @return Comment[]
+     */
+    public function getComments()
+    {
+        return $this->comments->toArray();
+    }
+
+    /**
+     * @param Attachment $attachment
+     * @return Answer
+     */
+    public function addAttachment(Attachment $attachment)
+    {
+        $this->attachments->add($attachment);
+        return $this;
+    }
+
+    /**
+     * @return Attachment[]
+     */
+    public function getAttachments()
+    {
+        return $this->attachments->toArray();
     }
 
 }

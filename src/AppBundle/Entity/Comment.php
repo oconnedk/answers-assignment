@@ -37,7 +37,7 @@ class Comment extends BasicAudit
      * @var ArrayCollection
      * Set-up as a one-to-many using many-to-many join table, as attachments can relate to both answers and comments
      * We want an attachment to relate to one-and-only one Comment
-     * @ORM\ManyToMany(targetEntity="Attachment")
+     * @ORM\ManyToMany(targetEntity="Attachment", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *  name="comment_attachment",
      *  joinColumns={
@@ -93,6 +93,24 @@ class Comment extends BasicAudit
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * @param Attachment $attachment
+     * @return Comment
+     */
+    public function addAttachment(Attachment $attachment)
+    {
+        $this->attachments->add($attachment);
+        return $this;
+    }
+
+    /**
+     * @return Attachment[]
+     */
+    public function getAttachments()
+    {
+        return $this->attachments->toArray();
     }
 
 }
