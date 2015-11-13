@@ -101,7 +101,10 @@ class Comment extends BasicAudit
      */
     public function addAttachment(Attachment $attachment)
     {
-        $this->attachments->add($attachment);
+        // Prevent duplicate attachments for this comment
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments->add($attachment);
+        }
         return $this;
     }
 

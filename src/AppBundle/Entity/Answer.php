@@ -128,7 +128,10 @@ class Answer extends BasicAudit
      */
     public function addComment(Comment $comment)
     {
-        $this->comments->add($comment);
+        // Prevent duplicate attachments for this answer
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+        }
         return $this;
     }
 
@@ -146,7 +149,10 @@ class Answer extends BasicAudit
      */
     public function addAttachment(Attachment $attachment)
     {
-        $this->attachments->add($attachment);
+        // Prevent duplicate attachments for this answer
+        if (!$this->attachments->contains($attachment)) {
+            $this->attachments->add($attachment);
+        }
         return $this;
     }
 
