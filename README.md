@@ -11,7 +11,16 @@ Status
 
 **INCOMPLETE**
 
-To-do:
+**Done:**
+
+- entity set-up
+- automate loading of project and test data
+- test data
+- user model (FOSUSerBundle)
+- token handling
+- install FOSRest and JMS Serializer
+
+**To-do:**
 
 - set up restful routes, ensuring SSL usage
 - set up restful test client
