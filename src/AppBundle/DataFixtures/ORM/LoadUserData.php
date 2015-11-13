@@ -39,8 +39,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $user = new User();
             $user->setUsername($userName);
             $user->setEmail(preg_replace("/[^A-Za-z0-9]/", "", $userName)."@work.com");
+            $user->setEnabled(true);
             $encoder = $this->container->get('security.password_encoder');
-            $password = $encoder->encodePassword($user, 'secret_password');
+            $password = $encoder->encodePassword($user, 'secret_password'); // FIXME: just sample data for a test database
             $user->setPassword($password);
             $manager->persist($user);
         }
