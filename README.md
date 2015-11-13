@@ -6,6 +6,17 @@ Usage
 
 Run the script ```scripts/setup.sh``` to set up the database, entities and test data.
 
+Status
+------
+
+**INCOMPLETE**
+
+To-do:
+
+- set up restful routes, ensuring SSL usage
+- set up restful test client
+- set up PHPUnit
+- restful API handling
 
 The Brief
 ---------
