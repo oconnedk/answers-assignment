@@ -1,10 +1,19 @@
 answer-assignment
 =================
 
+Usage
+-----
+
+Run the script ```scripts/setup.sh``` to set up the database, entities and test data.
+
+
 The Brief
 ---------
 
 Create an answer creation/ reporting tool.
+
+Analysis
+========
 
 In Scope
 --------
