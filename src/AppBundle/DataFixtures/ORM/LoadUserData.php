@@ -19,6 +19,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     const LOAD_ORDER = 0;
+    const SUPER_USER_REF = 'SUPER_USER';
 
     /** @var ContainerInterface */
     private $container;
@@ -29,21 +30,26 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     {
         self::$objectManager = $manager;
         $userNames = [
-            "LTorvalds",
-            "TBLee",
-            "SBrin",
-            "RLerdorf"
+            "SuperUser" => true,
+            "LTorvalds" => false,
+            "TBLee" => false,
+            "SBrin" => false,
+            "RLerdorf" => false
         ];
-        foreach ($userNames as $userName)
+        foreach ($userNames as $userName => $superUser)
         {
             $user = new User();
             $user->setUsername($userName);
             $user->setEmail(preg_replace("/[^A-Za-z0-9]/", "", $userName)."@work.com");
             $user->setEnabled(true);
+            $user->setSuperAdmin($superUser);
             $encoder = $this->container->get('security.password_encoder');
             $password = $encoder->encodePassword($user, 'secret_password'); // FIXME: just sample data for a test database
             $user->setPassword($password);
             $manager->persist($user);
+            if ($superUser) {
+                $this->addReference(self::SUPER_USER_REF, $user);
+            }
         }
         $manager->flush();
     }

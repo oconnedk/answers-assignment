@@ -2,31 +2,29 @@
 /**
  * Created by PhpStorm.
  * User: daniel
- * Date: 12/11/15
- * Time: 09:40
+ * Date: 13/11/15
+ * Time: 10:57
  */
 
 namespace AppBundle\DataFixtures\ORM;
 
-use AppBundle\Entity\AnswerSearchStat;
+
+use AppBundle\Entity\UserToken;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class LoadAnswerSearchStatData extends AbstractFixture implements OrderedFixtureInterface
+class LoadUserTokenData extends AbstractFixture implements OrderedFixtureInterface
 {
-    const LOAD_ORDER = 20;
+    const LOAD_ORDER = 5;
 
     public function load(ObjectManager $manager)
     {
-        foreach ($manager->getRepository("AppBundle:Answer")->findAll() as $answer)
+        $superUser = $this->getReference(LoadUserData::SUPER_USER_REF);
+        foreach ($manager->getRepository("AppBundle:User")->findAll() as $user)
         {
-            $createNumberOfStats = rand(1,20);
-            for ($i = 0; $i < $createNumberOfStats; ++$i)
-            {
-                $stat = new AnswerSearchStat($answer);
-                $manager->persist($stat);
-            }
+            $token = new UserToken($user, $superUser);
+            $manager->persist($token);
         }
         $manager->flush();
     }
@@ -40,4 +38,5 @@ class LoadAnswerSearchStatData extends AbstractFixture implements OrderedFixture
     {
         return self::LOAD_ORDER;
     }
+
 }

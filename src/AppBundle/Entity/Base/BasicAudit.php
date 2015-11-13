@@ -34,7 +34,7 @@ class BasicAudit
     /**
      * @param User $createdBy
      */
-    public function __construct($createdBy)
+    public function __construct(User $createdBy)
     {
         $this->createdBy = $createdBy;
         $this->createdAt = new \DateTime();
